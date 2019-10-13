@@ -15,7 +15,7 @@ admin.initializeApp({
 
 function checkRes (res) {
     response.map((dataRes)=> {
-        if(res.status == dataRes.statusCode) {
+        if(res.status === dataRes.statusCode) {
             res.send(dataRes.data())
         }
     })
