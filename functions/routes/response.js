@@ -1,4 +1,4 @@
-const res = [
+exports.response = [
     {
         statusCode: 200,
         data: function (message, req, res, data) {
