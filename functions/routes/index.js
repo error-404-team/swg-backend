@@ -8,8 +8,8 @@ const {
 
 router.post('/user/:id', setUser);
 router.post('/geoLocation/:id', setGEOLocation)
-router.post('/dateTime/:id', setDateTime)
-router.post('/shareLocation/:id', createShareLocation)
-router.post('/os/:id', setOS)
+// router.post('/dateTime/:id', setDateTime)
+// router.post('/shareLocation/:id', createShareLocation)
+// router.post('/os/:id', setOS)
 
 module.exports = router;

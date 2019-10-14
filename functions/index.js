@@ -14,7 +14,7 @@ const routes = require('./routes/index')
 app.use(cors({ origin: true }));
 app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
-app.use(routes);
+app.use('/app',routes);
 
 
 // // Create and Deploy Your First Cloud Functions
