@@ -14,20 +14,20 @@ admin.initializeApp({
 });
 
 // function checkRes (res) {
-//     response.map((dataRes)=> {
-//         if(res.status === dataRes.statusCode) {
-//             res.send(dataRes.data())
-//         }
-//     })
+//     // response.map((dataRes)=> {
+//     //     if(res.status === dataRes.statusCode) {
+//     //         res.send(dataRes.data())
+//     //     }
+//     // })
+//     res.send(`Hello ${res}`);
 // }
 
 exports.setUser = (req, res) => {
-    // checkRes(res)
-    // const userRef = admin.database.ref(`users/${req.params.id}/`)
+    // checkRes(res.status)
     // const test = JSON.parse(req.body)
     // console.log(test);
-    res.send(`Hello ${req.params.id}`);
-    // userRef.set(JSON.parse(req.body))
+    admin.database.ref(`users/${req.params.id}`).set(req.body)
+    res.send(`Hello ${req.body}`);
 }
 
 exports.setGEOLocation = (req, res) => {
