@@ -13,46 +13,109 @@ admin.initializeApp({
     databaseURL: "https://share-we-go.firebaseio.com"
 });
 
-// function checkRes (res) {
-//     // response.map((dataRes)=> {
-//     //     if(res.status === dataRes.statusCode) {
-//     //         res.send(dataRes.data())
-//     //     }
-//     // })
-//     res.send(`Hello ${res}`);
-// }
 
-exports.setUser = (req, res) => {
-    // checkRes(res.status)
-    // const test = JSON.parse(req.body)
-    // console.log(test);
-    admin.database.ref(`users/${req.params.id}`).set(req.body)
-    res.send(`Hello ${req.body}`);
-}
+exports.setUser = async (req, res) => {
 
-exports.setGEOLocation = (req, res) => {
-    // checkRes(res)
-    // const geoLocationRef = admin.database.ref(`geolocation/${req.params.id}/`)
-    // const test = JSON.parse(req.body)
-    res.send(`Hello ${req.params.id}`);
-    // console.log(test);
-    // geoLocationRef.set(JSON.parse(req.body))
-}
+    try {
 
-exports.setDateTime = (req, res) => {
-    // checkRes(res)
-    // const dateTimeRef = admin.database.ref(`dateTime/${req.params.id}/`)
-    // dateTimeRef.set(JSON.parse(req.body))
-}
+        await admin.database().ref(`users/${req.params.id}`).set(JSON.parse(req.body))
 
-exports.setOS = (req, res) => {
-    // checkRes(res)
-    // const osRef = admin.database.ref(`os/${req.params.id}/`)
-    // osRef.set(JSON.parse(req.body))
-}
+        // res.status(201).json(req)
+        res.send(`บันทึกข้อมูลผู้ใช้ เสร็จสิ้น`);
 
-exports.createShareLocation = (req, res) => {
-    // checkRes(res)
-    // const shareLocationRef = admin.database.ref(`shareLocation/${req.params.id}/`)
-    // shareLocationRef.set(JSON.parse(req.body))
-}
+        // console.log(req.body);
+
+
+    } catch (err) {
+
+        res.send(err.message);
+
+        console.log(err.message);
+
+        return res.sendStatus(500)
+    }
+
+};
+
+exports.setGEOLocation = async (req, res) => {
+
+    try {
+        await admin.database().ref(`geolocation/${req.params.id}`).set(JSON.parse(req.body))
+
+        // res.status(201).json(req)
+        res.send(`บันทึกข้อมูล geoLocation เสร็จสิ้น`);
+
+        console.log(req.body);
+
+    } catch (err) {
+
+        res.send(err.message);
+
+        console.log(err.message);
+
+        return res.sendStatus(500)
+    }
+};
+
+exports.setDateTime = async (req, res) => {
+
+    try {
+
+        await admin.database().ref(`dateTime/${req.params.id}`).set(req.body)
+
+        // res.status(201).json(req)
+        res.send(`บันทึกข้อมูล date time เสร็จสิ้น`);
+
+        console.log(res);
+
+    } catch (err) {
+
+        res.send(err.message);
+
+        console.log(err.message);
+
+        return res.sendStatus(500)
+    }
+};
+
+exports.setOS = async (req, res) => {
+
+    try {
+
+        await admin.database().ref(`os/${req.params.id}`).set(req.body)
+
+        // res.status(201).json(req)
+        res.send(`บันทึกข้อมูล os เสร็จสิ้น`);
+
+        console.log(res);
+
+    } catch (err) {
+
+        res.send(err.message);
+
+        console.log(err.message);
+
+        return res.sendStatus(500)
+    }
+};
+
+exports.createShareLocation = async (req, res) => {
+
+    try {
+
+        await admin.database().ref(`shareLocation/${req.params.id}`).set(req.body)
+
+        // res.status(201).json(req)
+        res.send(`บันทึกข้อมูล share location เสร็จสิ้น`);
+
+        console.log(res);
+
+    } catch (err) {
+
+        res.send(err.message);
+
+        console.log(err.message);
+
+        return res.sendStatus(500)
+    }
+};
