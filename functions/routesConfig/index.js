@@ -2,7 +2,7 @@ const cors = require("cors");
 const {
     setUser, setGEOLocation, setDateTime,
     createShareLocation, setOS
-} = require('./body')
+} = require('./module')
 
 const corsPostOptions = {
     origin: true,
