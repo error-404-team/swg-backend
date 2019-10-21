@@ -207,10 +207,11 @@ exports.getShareLocationPublic = async (req, res) => {
 };
 
 exports.postProfile = async (req, res) => {
+// console.log(JSON.parse(req.body));
 
     try {
 
-        await admin.database().ref(`profile/${req.params.id}`).set(JSON.parse(req.body))
+        await admin.database().ref(`profile/${req.params.id}`).update(JSON.parse(req.body))
         // res.status(201).json(req)
         res.send(`บันทึกข้อมูลผู้ใช้ profile เสร็จสิ้น`);
         // console.log(req.body);
