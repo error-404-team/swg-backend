@@ -102,7 +102,7 @@ exports.postBaseShareLocation = async (req, res) => {
 
     try {
 
-        await admin.database().ref(`base_share_location/${req.params.id}`).set(req.body)
+        await admin.database().ref(`base_share_location/${req.params.id}`).update(req.body)
 
         // res.status(201).json(req)
         res.send(`บันทึกข้อมูล base share location เสร็จสิ้น`);
@@ -207,7 +207,7 @@ exports.getShareLocationPublic = async (req, res) => {
 };
 
 exports.postProfile = async (req, res) => {
-// console.log(JSON.parse(req.body));
+    // console.log(JSON.parse(req.body));
 
     try {
 
@@ -277,3 +277,44 @@ exports.getProfile = async (req, res) => {
 
 };
 
+exports.postStatusShare = async (req, res) => {
+
+    try {
+
+        await admin.database().ref(`status_share/${req.params.share_id}`).set(JSON.parse(req.body))
+        // res.status(201).json(req)
+        res.send(`อัพเดต status share เสร็จสิ้น`);
+        // console.log(req.body);
+    } catch (err) {
+
+        res.send(err.message);
+
+        console.log(err.message);
+
+        return res.sendStatus(500)
+    }
+};
+
+exports.getStatusShare = async (req, res) => {
+
+    try {
+
+        await admin.database().ref(`status_share/${req.params.share_id}`).once("value").then(function (snapshot) {
+            let data = (snapshot.val())
+            if (data !== null) {
+                return res.send(data)
+            } else {
+                return res.send({status: false})
+            }
+        })
+
+    } catch (err) {
+
+        res.send(err.message);
+
+        console.log(err.message);
+
+        return res.sendStatus(500)
+    }
+
+};

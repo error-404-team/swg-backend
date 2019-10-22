@@ -2,7 +2,8 @@ const cors = require("cors");
 const {
     postUser, postGEOLocation,postStatusProcess,postBaseShareLocation,
     postShareLocationChat,putShareLocationJoin,getShareLocationPrivate,
-    getShareLocationPublic,postProfile,putProfile,getProfile,getGEOLocation
+    getShareLocationPublic,postProfile,putProfile,getProfile,getGEOLocation,
+    getStatusShare,postStatusShare
 } = require('./module')
 
 const corsPostOptions = {
@@ -22,6 +23,7 @@ function routesConfig(app) {
     app.options("/share_location_private/:id", cors(corsPostOptions));
     app.options("/share_location_public", cors(corsPostOptions));
     app.options("/profile/:id", cors(corsPostOptions));
+    app.options('/status_share/:share_id', cors(corsPostOptions));
 
     app.post('/user/:id', cors(corsPostOptions), postUser);
     app.post('/geolocation/:id', cors(corsPostOptions), postGEOLocation);
@@ -29,6 +31,7 @@ function routesConfig(app) {
     app.post('/base_share_location/:id', cors(corsPostOptions), postBaseShareLocation);
     app.post('/share_location/:hid/chat', cors(corsPostOptions), postShareLocationChat);
     app.post('/profile/:id', cors(corsPostOptions), postProfile);
+    app.post('/status_share/:share_id', cors(corsPostOptions), postStatusShare);
 
     app.put('/share_location/:hid/join/:uid', cors(corsPostOptions), putShareLocationJoin);
     app.put('/profile/:id', cors(corsPostOptions), putProfile);
@@ -37,6 +40,7 @@ function routesConfig(app) {
     app.get('/share_location_public', cors(corsPostOptions), getShareLocationPublic);
     app.get('/profile/:id', cors(corsPostOptions), getProfile);
     app.get('/geolocation/:id', cors(corsPostOptions), getGEOLocation);
+    app.get('/status_share/:share_id', cors(corsPostOptions), getStatusShare);
 
 }
 
