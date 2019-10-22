@@ -102,12 +102,12 @@ exports.postBaseShareLocation = async (req, res) => {
 
     try {
 
-        await admin.database().ref(`base_share_location/${req.params.id}`).update(req.body)
+        await admin.database().ref(`base_share_location/${req.params.id}`).update(JSON.parse(req.body))
 
         // res.status(201).json(req)
         res.send(`บันทึกข้อมูล base share location เสร็จสิ้น`);
 
-        console.log(res);
+        // console.log(res);
 
     } catch (err) {
 
@@ -304,7 +304,7 @@ exports.getStatusShare = async (req, res) => {
             if (data !== null) {
                 return res.send(data)
             } else {
-                return res.send({status: false})
+                return res.send({status_share: false})
             }
         })
 
