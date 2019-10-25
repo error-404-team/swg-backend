@@ -301,11 +301,170 @@ exports.post = {
                 }
             },
         }
+    },
+    status: {
+        process: async (req, res) => {
+            let path = `status/${req.params.id}/process`;
+            let data = JSON.parse(req.body);
+
+            try {
+
+                await updateValueDatabase(path, data)
+
+                res.send(`บันทึกข้อมูล ${path} เสร็จสิ้น`);
+
+            } catch (error) {
+                return checkError(err, res)
+            }
+        },
+        share: async (req, res) => {
+            let path = `status/${req.params.id}/share`;
+            let data = JSON.parse(req.body);
+
+            try {
+
+                await updateValueDatabase(path, data)
+
+                res.send(`บันทึกข้อมูล ${path} เสร็จสิ้น`);
+
+            } catch (error) {
+                return checkError(err, res)
+            }
+        },
+        owner: async (req, res) => {
+            let path = `status/${req.params.id}/owner`;
+            let data = JSON.parse(req.body);
+
+            try {
+
+                await updateValueDatabase(path, data)
+
+                res.send(`บันทึกข้อมูล ${path} เสร็จสิ้น`);
+
+            } catch (error) {
+                return checkError(err, res)
+            }
+        },
+        member: async (req, res) => {
+            let path = `status/${req.params.id}/member`;
+            let data = JSON.parse(req.body);
+
+            try {
+
+                await updateValueDatabase(path, data)
+
+                res.send(`บันทึกข้อมูล ${path} เสร็จสิ้น`);
+
+            } catch (error) {
+                return checkError(err, res)
+            }
+        },
+        alert: async (req, res) => {
+            let path = `status/${req.params.id}/alert`;
+            let data = JSON.parse(req.body);
+
+            try {
+
+                await updateValueDatabase(path, data)
+
+                res.send(`บันทึกข้อมูล ${path} เสร็จสิ้น`);
+
+            } catch (error) {
+                return checkError(err, res)
+            }
+        },
+        log: {
+            process: async (req, res) => {
+                let path = `status/${req.params.id}/_log/process`;
+                let data = JSON.parse(req.body);
+
+                try {
+
+                    await updateArrayDatabase(path, data)
+
+                    res.send(`บันทึกข้อมูล ${path} เสร็จสิ้น`);
+
+                } catch (error) {
+                    return checkError(err, res)
+                }
+            },
+            share: async (req, res) => {
+                let path = `status/${req.params.id}/_log/share`;
+                let data = JSON.parse(req.body);
+
+                try {
+
+                    await updateArrayDatabase(path, data)
+
+                    res.send(`บันทึกข้อมูล ${path} เสร็จสิ้น`);
+
+                } catch (error) {
+                    return checkError(err, res)
+                }
+            },
+            owner: async (req, res) => {
+                let path = `status/${req.params.id}/_log/owner`;
+                let data = JSON.parse(req.body);
+
+                try {
+
+                    await updateArrayDatabase(path, data)
+
+                    res.send(`บันทึกข้อมูล ${path} เสร็จสิ้น`);
+
+                } catch (error) {
+                    return checkError(err, res)
+                }
+            },
+            member: async (req, res) => {
+                let path = `status/${req.params.id}/_log/member`;
+                let data = JSON.parse(req.body);
+
+                try {
+
+                    await updateArrayDatabase(path, data)
+
+                    res.send(`บันทึกข้อมูล ${path} เสร็จสิ้น`);
+
+                } catch (error) {
+                    return checkError(err, res)
+                }
+            },
+            alert: async (req, res) => {
+                let path = `status/${req.params.id}/_log/alert`;
+                let data = JSON.parse(req.body);
+
+                try {
+
+                    await updateArrayDatabase(path, data)
+
+                    res.send(`บันทึกข้อมูล ${path} เสร็จสิ้น`);
+
+                } catch (error) {
+                    return checkError(err, res)
+                }
+            },
+        }
     }
 }
 
 exports.get = {
     users: {
+        user: async (req, res) => {
+            let path = `users/${req.params.id}/user`;
+
+            try {
+
+                await getDatabase(path).then(function (snapshot) {
+                    let data = (snapshot.val())
+                    return res.send(data)
+
+                })
+
+            } catch (err) {
+                return checkError(err, res)
+            }
+        },
         location: async (req, res) => {
             let path = `users/${req.params.id}/location`;
 
@@ -344,6 +503,53 @@ exports.get = {
             } catch (err) {
                 return checkError(err, res)
             }
+        },
+        log: {
+            user: async (req, res) => {
+                let path = `users/${req.params.id}/user`;
+    
+                try {
+    
+                    await getDatabase(path).then(function (snapshot) {
+                        let data = (snapshot.val())
+                        return res.send(data)
+    
+                    })
+    
+                } catch (err) {
+                    return checkError(err, res)
+                }
+            },
+            location: async (req, res) => {
+                let path = `users/${req.params.id}/location`;
+    
+                try {
+    
+                    await getDatabase(path).then(function (snapshot) {
+                        let data = (snapshot.val())
+                        return res.send(data)
+    
+                    })
+    
+                } catch (err) {
+                    return checkError(err, res)
+                }
+            },
+            profile: async (req, res) => {
+                let path = `users/${req.params.id}/profile`;
+    
+                try {
+    
+                    await getDatabase(path).then(function (snapshot) {
+                        let data = (snapshot.val())
+                        return res.send(data)
+    
+                    })
+    
+                } catch (err) {
+                    return checkError(err, res)
+                }
+            },
         }
     }
 }
