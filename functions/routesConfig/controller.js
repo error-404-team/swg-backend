@@ -506,46 +506,414 @@ exports.get = {
         },
         log: {
             user: async (req, res) => {
-                let path = `users/${req.params.id}/user`;
-    
+                let path = `users/${req.params.id}/_log/user`;
+
                 try {
-    
+
                     await getDatabase(path).then(function (snapshot) {
                         let data = (snapshot.val())
                         return res.send(data)
-    
+
                     })
-    
+
                 } catch (err) {
                     return checkError(err, res)
                 }
             },
             location: async (req, res) => {
-                let path = `users/${req.params.id}/location`;
-    
+                let path = `users/${req.params.id}/_log/location`;
+
                 try {
-    
+
                     await getDatabase(path).then(function (snapshot) {
                         let data = (snapshot.val())
                         return res.send(data)
-    
+
                     })
-    
+
                 } catch (err) {
                     return checkError(err, res)
                 }
             },
             profile: async (req, res) => {
-                let path = `users/${req.params.id}/profile`;
-    
+                let path = `users/${req.params.id}/_log/profile`;
+
                 try {
-    
+
                     await getDatabase(path).then(function (snapshot) {
                         let data = (snapshot.val())
                         return res.send(data)
-    
+
                     })
-    
+
+                } catch (err) {
+                    return checkError(err, res)
+                }
+            },
+        }
+    },
+    share: {
+        location: async (req, res) => {
+            let path = `share/${req.params.id}/location`;
+
+            try {
+
+                await getDatabase(path).then(function (snapshot) {
+                    let data = (snapshot.val())
+                    return res.send(data)
+
+                })
+
+            } catch (err) {
+                return checkError(err, res)
+            }
+        },
+        date: async (req, res) => {
+            let path = `share/${req.params.id}/date`;
+
+            try {
+
+                await getDatabase(path).then(function (snapshot) {
+                    let data = (snapshot.val())
+                    return res.send(data)
+
+                })
+
+            } catch (err) {
+                return checkError(err, res)
+            }
+        },
+        max_number: async (req, res) => {
+            let path = `share/${req.params.id}/max_number`;
+
+            try {
+
+                await getDatabase(path).then(function (snapshot) {
+                    let data = (snapshot.val())
+                    return res.send(data)
+
+                })
+
+            } catch (err) {
+                return checkError(err, res)
+            }
+        },
+        sex: async (req, res) => {
+            let path = `share/${req.params.id}/sex`;
+
+            try {
+
+                await getDatabase(path).then(function (snapshot) {
+                    let data = (snapshot.val())
+                    return res.send(data)
+
+                })
+
+            } catch (err) {
+                return checkError(err, res)
+            }
+        },
+        owner: async (req, res) => {
+            let path = `share/${req.params.id}/owner`;
+
+            try {
+
+                await getDatabase(path).then(function (snapshot) {
+                    let data = (snapshot.val())
+                    return res.send(data)
+
+                })
+
+            } catch (err) {
+                return checkError(err, res)
+            }
+        },
+        member: async (req, res) => {
+            let path = `share/${req.params.id}/member`;
+
+            try {
+
+                await getDatabase(path).then(function (snapshot) {
+                    let data = (snapshot.val())
+                    return res.send(data)
+
+                })
+
+            } catch (err) {
+                return checkError(err, res)
+            }
+        },
+        chat: async (req, res) => {
+            let path = `share/${req.params.id}/chat`;
+
+            try {
+
+                await getDatabase(path).then(function (snapshot) {
+                    let data = (snapshot.val())
+                    return res.send(data)
+
+                })
+
+            } catch (err) {
+                return checkError(err, res)
+            }
+        },
+        log: {
+            location: async (req, res) => {
+                let path = `share/${req.params.id}/_log/location`;
+
+                try {
+
+                    await getDatabase(path).then(function (snapshot) {
+                        let data = (snapshot.val())
+                        return res.send(data)
+
+                    })
+
+                } catch (err) {
+                    return checkError(err, res)
+                }
+            },
+            date: async (req, res) => {
+                let path = `share/${req.params.id}/_log/date`;
+
+                try {
+
+                    await getDatabase(path).then(function (snapshot) {
+                        let data = (snapshot.val())
+                        return res.send(data)
+
+                    })
+
+                } catch (err) {
+                    return checkError(err, res)
+                }
+            },
+            max_number: async (req, res) => {
+                let path = `share/${req.params.id}/_log/max_number`;
+
+                try {
+
+                    await getDatabase(path).then(function (snapshot) {
+                        let data = (snapshot.val())
+                        return res.send(data)
+
+                    })
+
+                } catch (err) {
+                    return checkError(err, res)
+                }
+            },
+            sex: async (req, res) => {
+                let path = `share/${req.params.id}/_log/sex`;
+
+                try {
+
+                    await getDatabase(path).then(function (snapshot) {
+                        let data = (snapshot.val())
+                        return res.send(data)
+
+                    })
+
+                } catch (err) {
+                    return checkError(err, res)
+                }
+            },
+            owner: async (req, res) => {
+                let path = `share/${req.params.id}/_log/owner`;
+
+                try {
+
+                    await getDatabase(path).then(function (snapshot) {
+                        let data = (snapshot.val())
+                        return res.send(data)
+
+                    })
+
+                } catch (err) {
+                    return checkError(err, res)
+                }
+            },
+            member: async (req, res) => {
+                let path = `share/${req.params.id}/_log/member`;
+
+                try {
+
+                    await getDatabase(path).then(function (snapshot) {
+                        let data = (snapshot.val())
+                        return res.send(data)
+
+                    })
+
+                } catch (err) {
+                    return checkError(err, res)
+                }
+            },
+            chat: async (req, res) => {
+                let path = `share/${req.params.id}/_log/chat`;
+
+                try {
+
+                    await getDatabase(path).then(function (snapshot) {
+                        let data = (snapshot.val())
+                        return res.send(data)
+
+                    })
+
+                } catch (err) {
+                    return checkError(err, res)
+                }
+            }
+        }
+    },
+    status: {
+        process: async (req, res) => {
+            let path = `status/${req.params.id}/process`;
+
+            try {
+
+                await getDatabase(path).then(function (snapshot) {
+                    let data = (snapshot.val())
+                    return res.send(data)
+
+                })
+
+            } catch (err) {
+                return checkError(err, res)
+            }
+        },
+        share: async (req, res) => {
+            let path = `status/${req.params.id}/share`;
+
+            try {
+
+                await getDatabase(path).then(function (snapshot) {
+                    let data = (snapshot.val())
+                    return res.send(data)
+
+                })
+
+            } catch (err) {
+                return checkError(err, res)
+            }
+        },
+        owner: async (req, res) => {
+            let path = `status/${req.params.id}/owner`;
+
+            try {
+
+                await getDatabase(path).then(function (snapshot) {
+                    let data = (snapshot.val())
+                    return res.send(data)
+
+                })
+
+            } catch (err) {
+                return checkError(err, res)
+            }
+        },
+        member: async (req, res) => {
+            let path = `status/${req.params.id}/member`;
+
+            try {
+
+                await getDatabase(path).then(function (snapshot) {
+                    let data = (snapshot.val())
+                    return res.send(data)
+
+                })
+
+            } catch (err) {
+                return checkError(err, res)
+            }
+        },
+        alert: async (req, res) => {
+            let path = `status/${req.params.id}/alert`;
+
+            try {
+
+                await getDatabase(path).then(function (snapshot) {
+                    let data = (snapshot.val())
+                    return res.send(data)
+
+                })
+
+            } catch (err) {
+                return checkError(err, res)
+            }
+        },
+        log: {
+            process: async (req, res) => {
+                let path = `status/${req.params.id}/_log/process`;
+
+                try {
+
+                    await getDatabase(path).then(function (snapshot) {
+                        let data = (snapshot.val())
+                        return res.send(data)
+
+                    })
+
+                } catch (err) {
+                    return checkError(err, res)
+                }
+            },
+            share: async (req, res) => {
+                let path = `status/${req.params.id}/_log/share`;
+
+                try {
+
+                    await getDatabase(path).then(function (snapshot) {
+                        let data = (snapshot.val())
+                        return res.send(data)
+
+                    })
+
+                } catch (err) {
+                    return checkError(err, res)
+                }
+            },
+            owner: async (req, res) => {
+                let path = `status/${req.params.id}/_log/owner`;
+
+                try {
+
+                    await getDatabase(path).then(function (snapshot) {
+                        let data = (snapshot.val())
+                        return res.send(data)
+
+                    })
+
+                } catch (err) {
+                    return checkError(err, res)
+                }
+            },
+            member: async (req, res) => {
+                let path = `status/${req.params.id}/_log/member`;
+
+                try {
+
+                    await getDatabase(path).then(function (snapshot) {
+                        let data = (snapshot.val())
+                        return res.send(data)
+
+                    })
+
+                } catch (err) {
+                    return checkError(err, res)
+                }
+            },
+            alert: async (req, res) => {
+                let path = `status/${req.params.id}/_log/alert`;
+
+                try {
+
+                    await getDatabase(path).then(function (snapshot) {
+                        let data = (snapshot.val())
+                        return res.send(data)
+
+                    })
+
                 } catch (err) {
                     return checkError(err, res)
                 }
