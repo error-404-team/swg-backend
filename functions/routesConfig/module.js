@@ -7,7 +7,7 @@ const serviceAccount = require("../serviceAccountKey.json");
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://share-we-go.firebaseio.com"
+    databaseURL: "https://share-we-go-project.firebaseio.com"
 });
 
 exports.updateObjectDatabase = async (path, data) => {
@@ -24,6 +24,10 @@ exports.updateValueDatabase = async (path, data) => {
 
 exports.createDatabase = async (path, data) => {
     await admin.database().ref(`${path}`).set(data)
+}
+
+exports.deleteDatabase = async (path) => {
+    await admin.database().ref(`${path}`).remove()
 }
 
 exports.getDatabase = (path) => {

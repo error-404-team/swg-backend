@@ -2,7 +2,8 @@
 // const fs = require('fs');
 // const url = require('url');
 // const functions = require('firebase-functions');
-const { updateObjectDatabase, updateArrayDatabase, updateValueDatabase, getDatabase } = require('./module')
+const { updateObjectDatabase, updateArrayDatabase,
+    updateValueDatabase, getDatabase, deleteDatabase } = require('./module')
 
 
 function checkError(err, res) {
@@ -445,11 +446,72 @@ exports.post = {
                 }
             },
         }
+    },
+    history: {
+        id: async (req, res) => {
+            let path = `history/${req.params.id}`;
+            let data = JSON.parse(req.body);
+
+            try {
+
+                await updateArrayDatabase(path, data)
+
+                res.send(`บันทึกข้อมูล ${path} เสร็จสิ้น`);
+
+            } catch (error) {
+                return checkError(err, res)
+            }
+        },
+        log: async (req, res) => {
+            let path = `history/${req.params.id}/_log`;
+            let data = JSON.parse(req.body);
+
+            try {
+
+                await updateArrayDatabase(path, data)
+
+                res.send(`บันทึกข้อมูล ${path} เสร็จสิ้น`);
+
+            } catch (error) {
+                return checkError(err, res)
+            }
+
+        }
     }
 }
 
 exports.get = {
     users: {
+        all: async (req, res) => {
+            let path = `users`;
+
+            try {
+
+                await getDatabase(path).then(function (snapshot) {
+                    let data = (snapshot.val())
+                    return res.send(data)
+
+                })
+
+            } catch (err) {
+                return checkError(err, res)
+            }
+        },
+        id: async (req, res) => {
+            let path = `users/${req.params.id}`;
+
+            try {
+
+                await getDatabase(path).then(function (snapshot) {
+                    let data = (snapshot.val())
+                    return res.send(data)
+
+                })
+
+            } catch (err) {
+                return checkError(err, res)
+            }
+        },
         user: async (req, res) => {
             let path = `users/${req.params.id}/user`;
 
@@ -553,6 +615,36 @@ exports.get = {
         }
     },
     share: {
+        all: async (req, res) => {
+            let path = `share`;
+
+            try {
+
+                await getDatabase(path).then(function (snapshot) {
+                    let data = (snapshot.val())
+                    return res.send(data)
+
+                })
+
+            } catch (err) {
+                return checkError(err, res)
+            }
+        },
+        id: async (req, res) => {
+            let path = `share/${req.params.id}`;
+
+            try {
+
+                await getDatabase(path).then(function (snapshot) {
+                    let data = (snapshot.val())
+                    return res.send(data)
+
+                })
+
+            } catch (err) {
+                return checkError(err, res)
+            }
+        },
         location: async (req, res) => {
             let path = `share/${req.params.id}/location`;
 
@@ -767,6 +859,36 @@ exports.get = {
         }
     },
     status: {
+        all: async (req, res) => {
+            let path = `status`;
+
+            try {
+
+                await getDatabase(path).then(function (snapshot) {
+                    let data = (snapshot.val())
+                    return res.send(data)
+
+                })
+
+            } catch (err) {
+                return checkError(err, res)
+            }
+        },
+        id: async (req, res) => {
+            let path = `status/${req.params.id}`;
+
+            try {
+
+                await getDatabase(path).then(function (snapshot) {
+                    let data = (snapshot.val())
+                    return res.send(data)
+
+                })
+
+            } catch (err) {
+                return checkError(err, res)
+            }
+        },
         process: async (req, res) => {
             let path = `status/${req.params.id}/process`;
 
@@ -789,7 +911,20 @@ exports.get = {
 
                 await getDatabase(path).then(function (snapshot) {
                     let data = (snapshot.val())
-                    return res.send(data)
+                    if (data !== null) {
+                        return res.send(data)
+                    } else {
+                        getDatabase(path).then(function (snapshot) {
+                            let user = (snapshot.val())
+                            console.log(user);
+
+                            updateObjectDatabase(path, {
+                                id: "",
+                                uid: "",
+                                value: "false"
+                            })
+                        })
+                    }
 
                 })
 
@@ -804,7 +939,21 @@ exports.get = {
 
                 await getDatabase(path).then(function (snapshot) {
                     let data = (snapshot.val())
-                    return res.send(data)
+                    if (data !== null) {
+                        return res.send(data)
+                    } else {
+                        getDatabase(path).then(function (snapshot) {
+                            let user = (snapshot.val())
+                            console.log(user);
+
+                            updateObjectDatabase(path, {
+                                share_id: "",
+                                uid: "",
+                                value: "false"
+
+                            })
+                        })
+                    }
 
                 })
 
@@ -819,7 +968,22 @@ exports.get = {
 
                 await getDatabase(path).then(function (snapshot) {
                     let data = (snapshot.val())
-                    return res.send(data)
+                    if (data !== null) {
+                        return res.send(data)
+                    } else {
+                        getDatabase(path).then(function (snapshot) {
+                            let user = (snapshot.val())
+                            console.log(user);
+
+                            updateObjectDatabase(path, {
+                                share_id: "",
+                                uid: "",
+                                value: "false"
+
+                            })
+                        })
+                    }
+
 
                 })
 
@@ -922,301 +1086,407 @@ exports.get = {
     }
 }
 
-// exports.postUser = async (req, res) => {
+exports.d = {
+    users: {
+        user: async (req, res) => {
+            let path = `users/${req.params.id}/user`
 
-//     try {
+            try {
 
-//         await admin.database().ref(`users/${req.params.id}`).set(JSON.parse(req.body))
-//         // res.status(201).json(req)
-//         res.send(`บันทึกข้อมูลผู้ใช้ เสร็จสิ้น`);
-//         // console.log(req.body);
+                await deleteDatabase(path, data)
 
+                res.send(`ลบข้อมูล ${path} เสร็จสิ้น`);
 
-//     } catch (err) {
+            } catch (error) {
+                return checkError(err, res)
+            }
+        },
+        location: async (req, res) => {
+            let path = `users/${req.params.id}/location`
 
-//         return checkError(err, res)
-//     }
+            try {
 
-// };
+                await deleteDatabase(path, data)
 
-// exports.postGEOLocation = async (req, res) => {
+                res.send(`ลบข้อมูล ${path} เสร็จสิ้น`);
 
-//     try {
-//         await admin.database().ref(`geolocation/${req.params.id}`).set(JSON.parse(req.body))
-//         // res.status(201).json(req)
-//         res.send(`บันทึกข้อมูล geoLocation เสร็จสิ้น`);
+            } catch (error) {
+                return checkError(err, res)
+            }
+        },
+        profile: async (req, res) => {
+            let path = `users/${req.params.id}/profile`
 
-//         // console.log(req.body);
+            try {
 
+                await deleteDatabase(path, data)
 
-//     } catch (err) {
+                res.send(`ลบข้อมูล ${path} เสร็จสิ้น`);
 
-//         res.send(err.message);
+            } catch (error) {
+                return checkError(err, res)
+            }
+        },
+        log: {
+            user: async (req, res) => {
+                let path = `users/${req.params.id}/_log/user`;
 
-//         console.log(err.message);
+                try {
 
-//         return res.sendStatus(500)
-//     }
-// };
+                    await deleteDatabase(path, data)
 
-// exports.getGEOLocation = async (req, res) => {
+                    res.send(`ลบข้อมูล ${path} เสร็จสิ้น`);
 
-//     try {
+                } catch (error) {
+                    return checkError(err, res)
+                }
+            },
+            location: async (req, res) => {
+                let path = `users/${req.params.id}/_log/location`;
 
-//         await admin.database().ref(`geolocation/${req.params.id}`).once("value").then(function (snapshot) {
-//             let data = (snapshot.val())
-//             return res.send(data.data)
-//         })
+                try {
 
-//     } catch (err) {
+                    await deleteDatabase(path, data)
 
-//         res.send(err.message);
+                    res.send(`ลบข้อมูล ${path} เสร็จสิ้น`);
 
-//         console.log(err.message);
+                } catch (error) {
+                    return checkError(err, res)
+                }
+            },
+            profile: async (req, res) => {
+                let path = `users/${req.params.id}/_log/profile`;
 
-//         return res.sendStatus(500)
-//     }
-// };
+                try {
 
-// exports.postStatusProcess = async (req, res) => {
+                    await deleteDatabase(path, data)
 
-//     try {
+                    res.send(`ลบข้อมูล ${path} เสร็จสิ้น`);
 
-//         await admin.database().ref(`status/${req.params.id}/process`).set(JSON.parse(req.body))
+                } catch (error) {
+                    return checkError(err, res)
+                }
+            }
+        }
+    },
+    share: {
+        location: async (req, res) => {
+            let path = `share/${req.params.id}/location`
 
-//         // res.status(201).json(req)
-//         // res.send(`บันทึกข้อมูล date time เสร็จสิ้น`);
+            try {
 
-//         // console.log(res);
+                await deleteDatabase(path)
 
-//     } catch (err) {
+                res.send(`ลบข้อมูล ${path} เสร็จสิ้น`);
 
-//         res.send(err.message);
+            } catch (error) {
+                return checkError(err, res)
+            }
+        },
+        date: async (req, res) => {
+            let path = `share/${req.params.id}/date`
 
-//         console.log(err.message);
+            try {
 
-//         return res.sendStatus(500)
-//     }
-// };
+                await deleteDatabase(path)
 
+                res.send(`ลบข้อมูล ${path} เสร็จสิ้น`);
 
-// exports.postBaseShareLocation = async (req, res) => {
+            } catch (error) {
+                return checkError(err, res)
+            }
+        },
+        max_number: async (req, res) => {
+            let path = `share/${req.params.id}/max_number`
 
-//     try {
+            try {
 
-//         await admin.database().ref(`base_share_location/${req.params.id}`).update(JSON.parse(req.body))
+                await deleteDatabase(path)
 
-//         // res.status(201).json(req)
-//         res.send(`บันทึกข้อมูล base share location เสร็จสิ้น`);
+                res.send(`ลบข้อมูล ${path} เสร็จสิ้น`);
 
-//         // console.log(res);
+            } catch (error) {
+                return checkError(err, res)
+            }
+        },
+        sex: async (req, res) => {
+            let path = `share/${req.params.id}/sex`
 
-//     } catch (err) {
+            try {
 
-//         res.send(err.message);
+                await deleteDatabase(path)
 
-//         console.log(err.message);
+                res.send(`ลบข้อมูล ${path} เสร็จสิ้น`);
 
-//         return res.sendStatus(500)
-//     }
-// };
+            } catch (error) {
+                return checkError(err, res)
+            }
+        },
+        owner: async (req, res) => {
+            let path = `share/${req.params.id}/owner`
 
-// exports.putShareLocationJoin = async (req, res) => {
+            try {
 
-//     try {
+                await deleteDatabase(path)
 
-//         await admin.database().ref(`share_location/${req.params.hid}/join/${req.params.uid}`).set(JSON.parse(req.body))
-//         // res.status(201).json(req)
-//         res.send(`อัพเดต share location เสร็จสิ้น`);
-//         // console.log(req.body);
+                res.send(`ลบข้อมูล ${path} เสร็จสิ้น`);
 
+            } catch (error) {
+                return checkError(err, res)
+            }
+        },
+        member: async (req, res) => {
+            let path = `share/${req.params.id}/member/${req.params.uid}`
 
-//     } catch (err) {
+            try {
 
-//         res.send(err.message);
+                await deleteDatabase(path)
 
-//         console.log(err.message);
+                res.send(`ลบข้อมูล ${path} เสร็จสิ้น`);
 
-//         return res.sendStatus(500)
-//     }
+            } catch (error) {
+                return checkError(err, res)
+            }
+        },
+        chat: async (req, res) => {
+            let path = `share/${req.params.id}/chat`
 
-// };
+            try {
 
-// exports.postShareLocationChat = async (req, res) => {
+                await deleteDatabase(path)
 
-//     try {
+                res.send(`ลบข้อมูล ${path} เสร็จสิ้น`);
 
-//         await admin.database().ref(`share_location/${req.params.hid}/chat`).push(JSON.parse(req.body))
-//         // res.status(201).json(req)
-//         res.send(`อัพเดต share location เสร็จสิ้น`);
-//         // console.log(req.body);
+            } catch (error) {
+                return checkError(err, res)
+            }
+        },
+        log: {
+            location: async (req, res) => {
+                let path = `share/${req.params.id}/_log/location`;
 
+                try {
 
-//     } catch (err) {
+                    await deleteDatabase(path)
 
-//         res.send(err.message);
+                    res.send(`ลบข้อมูล ${path} เสร็จสิ้น`);
 
-//         console.log(err.message);
+                } catch (error) {
+                    return checkError(err, res)
+                }
+            },
+            date: async (req, res) => {
+                let path = `share/${req.params.id}/_log/date`;
 
-//         return res.sendStatus(500)
-//     }
+                try {
 
-// };
+                    await deleteDatabase(path)
 
-// exports.getShareLocationPrivate = async (req, res) => {
+                    res.send(`ลบข้อมูล ${path} เสร็จสิ้น`);
 
-//     try {
+                } catch (error) {
+                    return checkError(err, res)
+                }
+            },
+            max_number: async (req, res) => {
+                let path = `share/${req.params.id}/_log/max_number`;
 
-//         await admin.database().ref(`base_share_location/${req.params.id}`).once("value").then(function (snapshot) {
-//             let data = (snapshot.val())
-//             if (data !== null) {
-//                 return res.send(data)
-//             } else {
-//                 admin.database().ref(`base_share_location/${req.params.id}`).once("value").then(function (snapshot) {
-//                     let user = (snapshot.val())
-//                     admin.database().ref(`share_location/${req.params.id}`).set(user)
-//                 })
-//             }
-//         })
+                try {
 
-//     } catch (err) {
+                    await deleteDatabase(path)
 
-//         res.send(err.message);
+                    res.send(`ลบข้อมูล ${path} เสร็จสิ้น`);
 
-//         console.log(err.message);
+                } catch (error) {
+                    return checkError(err, res)
+                }
+            },
+            sex: async (req, res) => {
+                let path = `share/${req.params.id}/_log/sex`;
 
-//         return res.sendStatus(500)
-//     }
-// };
+                try {
 
-// exports.getShareLocationPublic = async (req, res) => {
+                    await deleteDatabase(path)
 
-//     try {
+                    res.send(`ลบข้อมูล ${path} เสร็จสิ้น`);
 
-//         await admin.database().ref(`share_location/`).once("value").then(function (snapshot) {
-//             let data = (snapshot.val())
-//             return res.send(data)
-//         })
+                } catch (error) {
+                    return checkError(err, res)
+                }
+            },
+            owner: async (req, res) => {
+                let path = `share/${req.params.id}/_log/owner`;
 
-//     } catch (err) {
+                try {
 
-//         res.send(err.message);
+                    await deleteDatabase(path)
 
-//         console.log(err.message);
+                    res.send(`ลบข้อมูล ${path} เสร็จสิ้น`);
 
-//         return res.sendStatus(500)
-//     }
-// };
+                } catch (error) {
+                    return checkError(err, res)
+                }
+            },
+            member: async (req, res) => {
+                let path = `share/${req.params.id}/_log/member`;
 
-// exports.postProfile = async (req, res) => {
-//     // console.log(JSON.parse(req.body));
+                try {
 
-//     try {
+                    await deleteDatabase(path)
 
-//         await admin.database().ref(`profile/${req.params.id}`).update(JSON.parse(req.body))
-//         // res.status(201).json(req)
-//         res.send(`บันทึกข้อมูลผู้ใช้ profile เสร็จสิ้น`);
-//         // console.log(req.body);
+                    res.send(`ลบข้อมูล ${path} เสร็จสิ้น`);
 
+                } catch (error) {
+                    return checkError(err, res)
+                }
+            },
+            chat: async (req, res) => {
+                let path = `share/${req.params.id}/_log/chat`;
 
-//     } catch (err) {
+                try {
 
-//         res.send(err.message);
+                    await deleteDatabase(path)
 
-//         console.log(err.message);
+                    res.send(`ลบข้อมูล ${path} เสร็จสิ้น`);
 
-//         return res.sendStatus(500)
-//     }
+                } catch (error) {
+                    return checkError(err, res)
+                }
+            },
+        }
+    },
+    status: {
+        process: async (req, res) => {
+            let path = `status/${req.params.id}/process`
 
-// };
+            try {
 
-// exports.putProfile = async (req, res) => {
+                await deleteDatabase(path)
 
-//     try {
+                res.send(`ลบข้อมูล ${path} เสร็จสิ้น`);
 
-//         await admin.database().ref(`profile/${req.params.id}`).update(JSON.parse(req.body))
-//         // res.status(201).json(req)
-//         res.send(`อัพเดต profile เสร็จสิ้น`);
-//         // console.log(req.body);
+            } catch (error) {
+                return checkError(err, res)
+            }
+        },
+        share: async (req, res) => {
+            let path = `status/${req.params.id}/share`
 
+            try {
 
-//     } catch (err) {
+                await deleteDatabase(path)
 
-//         res.send(err.message);
+                res.send(`ลบข้อมูล ${path} เสร็จสิ้น`);
 
-//         console.log(err.message);
+            } catch (error) {
+                return checkError(err, res)
+            }
+        },
+        owner: async (req, res) => {
+            let path = `status/${req.params.id}/owner`
 
-//         return res.sendStatus(500)
-//     }
+            try {
 
-// };
+                await deleteDatabase(path)
 
-// exports.getProfile = async (req, res) => {
+                res.send(`ลบข้อมูล ${path} เสร็จสิ้น`);
 
-//     try {
+            } catch (error) {
+                return checkError(err, res)
+            }
+        },
+        member: async (req, res) => {
+            let path = `status/${req.params.id}/member`
 
-//         await admin.database().ref(`profile/${req.params.id}`).once("value").then(function (snapshot) {
-//             let data = (snapshot.val())
-//             if (data !== null) {
-//                 return res.send(data)
-//             } else {
-//                 admin.database().ref(`users/${req.params.id}`).once("value").then(function (snapshot) {
-//                     let user = (snapshot.val())
-//                     admin.database().ref(`profile/${req.params.id}`).set(user.data.providerData[0])
-//                 })
-//             }
-//         })
+            try {
 
+                await deleteDatabase(path)
 
-//     } catch (err) {
+                res.send(`ลบข้อมูล ${path} เสร็จสิ้น`);
 
-//         res.send(err.message);
+            } catch (error) {
+                return checkError(err, res)
+            }
+        },
+        alert: async (req, res) => {
+            let path = `status/${req.params.id}/alert`
 
-//         console.log(err.message);
+            try {
 
-//         return res.sendStatus(500)
-//     }
+                await deleteDatabase(path)
 
-// };
+                res.send(`ลบข้อมูล ${path} เสร็จสิ้น`);
 
-// exports.postStatusShare = async (req, res) => {
+            } catch (error) {
+                return checkError(err, res)
+            }
+        },
+        log: {
+            process: async (req, res) => {
+                let path = `status/${req.params.id}/_log/process`;
 
-//     try {
+                try {
 
-//         await admin.database().ref(`status/${req.params.share_id}/share`).set(JSON.parse(req.body))
-//         // res.status(201).json(req)
-//         res.send(`อัพเดต status share เสร็จสิ้น`);
-//         // console.log(req.body);
-//     } catch (err) {
+                    await deleteDatabase(path)
 
-//         res.send(err.message);
+                    res.send(`ลบข้อมูล ${path} เสร็จสิ้น`);
 
-//         console.log(err.message);
+                } catch (error) {
+                    return checkError(err, res)
+                }
+            },
+            share: async (req, res) => {
+                let path = `status/${req.params.id}/_log/share`;
 
-//         return res.sendStatus(500)
-//     }
-// };
+                try {
 
-// exports.getStatusShare = async (req, res) => {
+                    await deleteDatabase(path)
 
-//     try {
+                    res.send(`ลบข้อมูล ${path} เสร็จสิ้น`);
 
-//         await admin.database().ref(`status/${req.params.share_id}`).once("value").then(function (snapshot) {
-//             let data = (snapshot.val())
-//             if (data !== null) {
-//                 return res.send(data)
-//             } else {
-//                 return res.send({ share: false })
-//             }
-//         })
+                } catch (error) {
+                    return checkError(err, res)
+                }
+            },
+            owner: async (req, res) => {
+                let path = `status/${req.params.id}/_log/owner`;
 
-//     } catch (err) {
+                try {
 
-//         res.send(err.message);
+                    await deleteDatabase(path)
 
-//         console.log(err.message);
+                    res.send(`ลบข้อมูล ${path} เสร็จสิ้น`);
 
-//         return res.sendStatus(500)
-//     }
+                } catch (error) {
+                    return checkError(err, res)
+                }
+            },
+            member: async (req, res) => {
+                let path = `status/${req.params.id}/_log/member`;
 
-// };
+                try {
+
+                    await deleteDatabase(path)
+
+                    res.send(`ลบข้อมูล ${path} เสร็จสิ้น`);
+
+                } catch (error) {
+                    return checkError(err, res)
+                }
+            },
+            alert: async (req, res) => {
+                let path = `status/${req.params.id}/_log/alert`;
+
+                try {
+
+                    await deleteDatabase(path)
+
+                    res.send(`ลบข้อมูล ${path} เสร็จสิ้น`);
+
+                } catch (error) {
+                    return checkError(err, res)
+                }
+            },
+        }
+    }
+}
