@@ -5,7 +5,7 @@ const corsOptions = {
     origin: true,
     methods: ["POST", "GET", "PUT", "OPTIONS, DELETE"],
     credentials: true,
-    maxAge: 3600
+    maxAge: 0
 };
 
 function routesConfig(app) {
