@@ -896,7 +896,16 @@ exports.get = {
 
                 await getDatabase(path).then(function (snapshot) {
                     let data = (snapshot.val())
-                    return res.send(data)
+
+                    if (data !== null) {
+                        return res.send(data)
+                    }else {
+                        updateObjectDatabase(path, {
+                            share_id: '',
+                            uid: `${req.params.id}`,
+                            value: 'false'
+                        })
+                    }
 
                 })
 
@@ -911,18 +920,14 @@ exports.get = {
 
                 await getDatabase(path).then(function (snapshot) {
                     let data = (snapshot.val())
+                    
                     if (data !== null) {
                         return res.send(data)
-                    } else {
-                        getDatabase(path).then(function (snapshot) {
-                            let user = (snapshot.val())
-                            console.log(user);
-
-                            updateObjectDatabase(path, {
-                                id: "",
-                                uid: "",
-                                value: "false"
-                            })
+                    }else {
+                        updateObjectDatabase(path, {
+                            id: '',
+                            uid: `${req.params.id}`,
+                            value: 'false'
                         })
                     }
 
@@ -939,19 +944,14 @@ exports.get = {
 
                 await getDatabase(path).then(function (snapshot) {
                     let data = (snapshot.val())
+                   
                     if (data !== null) {
                         return res.send(data)
-                    } else {
-                        getDatabase(path).then(function (snapshot) {
-                            let user = (snapshot.val())
-                            console.log(user);
-
-                            updateObjectDatabase(path, {
-                                share_id: "",
-                                uid: "",
-                                value: "false"
-
-                            })
+                    }else {
+                        updateObjectDatabase(path, {
+                            share_id: '',
+                            uid: `${req.params.id}`,
+                            value: 'false'
                         })
                     }
 
@@ -968,23 +968,16 @@ exports.get = {
 
                 await getDatabase(path).then(function (snapshot) {
                     let data = (snapshot.val())
+                   
                     if (data !== null) {
                         return res.send(data)
-                    } else {
-                        getDatabase(path).then(function (snapshot) {
-                            let user = (snapshot.val())
-                            console.log(user);
-
-                            updateObjectDatabase(path, {
-                                share_id: "",
-                                uid: "",
-                                value: "false"
-
-                            })
+                    }else {
+                        updateObjectDatabase(path, {
+                            share_id: '',
+                            uid: `${req.params.id}`,
+                            value: 'false'
                         })
                     }
-
-
                 })
 
             } catch (err) {
@@ -998,7 +991,16 @@ exports.get = {
 
                 await getDatabase(path).then(function (snapshot) {
                     let data = (snapshot.val())
-                    return res.send(data)
+                     
+                    if (data !== null) {
+                        return res.send(data)
+                    }else {
+                        updateObjectDatabase(path, {
+                            share_id: '',
+                            uid: `${req.params.id}`,
+                            value: 'false'
+                        })
+                    }
 
                 })
 
