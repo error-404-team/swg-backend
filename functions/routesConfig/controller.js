@@ -899,7 +899,7 @@ exports.get = {
 
                     if (data !== null) {
                         return res.send(data)
-                    }else {
+                    } else {
                         updateObjectDatabase(path, {
                             share_id: '',
                             uid: `${req.params.id}`,
@@ -920,10 +920,10 @@ exports.get = {
 
                 await getDatabase(path).then(function (snapshot) {
                     let data = (snapshot.val())
-                    
+
                     if (data !== null) {
                         return res.send(data)
-                    }else {
+                    } else {
                         updateObjectDatabase(path, {
                             id: '',
                             uid: `${req.params.id}`,
@@ -944,10 +944,10 @@ exports.get = {
 
                 await getDatabase(path).then(function (snapshot) {
                     let data = (snapshot.val())
-                   
+
                     if (data !== null) {
                         return res.send(data)
-                    }else {
+                    } else {
                         updateObjectDatabase(path, {
                             share_id: '',
                             uid: `${req.params.id}`,
@@ -968,10 +968,11 @@ exports.get = {
 
                 await getDatabase(path).then(function (snapshot) {
                     let data = (snapshot.val())
-                   
+                    
                     if (data !== null) {
+                        console.log(data);
                         return res.send(data)
-                    }else {
+                    } else {
                         updateObjectDatabase(path, {
                             share_id: '',
                             uid: `${req.params.id}`,
@@ -991,10 +992,10 @@ exports.get = {
 
                 await getDatabase(path).then(function (snapshot) {
                     let data = (snapshot.val())
-                     
+
                     if (data !== null) {
                         return res.send(data)
-                    }else {
+                    } else {
                         updateObjectDatabase(path, {
                             share_id: '',
                             uid: `${req.params.id}`,
