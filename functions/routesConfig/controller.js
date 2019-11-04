@@ -622,8 +622,12 @@ exports.get = {
 
                 await getDatabase(path).then(function (snapshot) {
                     let data = (snapshot.val())
-                    return res.send(data)
 
+                    if (data !== null) {
+                        return res.send(data)
+                    }else {
+                        updateObjectDatabase(path, null)
+                    }
                 })
 
             } catch (err) {
@@ -968,7 +972,7 @@ exports.get = {
 
                 await getDatabase(path).then(function (snapshot) {
                     let data = (snapshot.val())
-                    
+
                     if (data !== null) {
                         console.log(data);
                         return res.send(data)
