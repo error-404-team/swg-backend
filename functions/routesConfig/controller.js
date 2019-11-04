@@ -625,7 +625,7 @@ exports.get = {
 
                     if (data !== null) {
                         return res.send(data)
-                    }else {
+                    } else {
                         updateObjectDatabase(path, null)
                     }
                 })
@@ -885,7 +885,37 @@ exports.get = {
 
                 await getDatabase(path).then(function (snapshot) {
                     let data = (snapshot.val())
-                    return res.send(data)
+                    if (data !== null) {
+                        return res.send(data)
+                    } else {
+                        updateObjectDatabase(path, {
+                            process: {
+                                share_id: '',
+                                uid: `${req.params.id}`,
+                                value: 'false'
+                            },
+                            share: {
+                                id: '',
+                                uid: `${req.params.id}`,
+                                value: 'false'
+                            },
+                            owner: {
+                                share_id: '',
+                                uid: `${req.params.id}`,
+                                value: 'false'
+                            },
+                            member: {
+                                share_id: '',
+                                uid: `${req.params.id}`,
+                                value: 'false'
+                            },
+                            alert: {
+                                share_id: '',
+                                uid: `${req.params.id}`,
+                                value: 'false'
+                            }
+                        })
+                    }
 
                 })
 

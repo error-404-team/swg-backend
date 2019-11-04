@@ -1,6 +1,8 @@
 const cors = require("cors");
 const { post, get, d } = require('./controller')
 
+
+
 const corsOptions = {
     origin: true,
     methods: ["POST", "GET", "PUT", "OPTIONS, DELETE"],
