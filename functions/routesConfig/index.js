@@ -128,7 +128,7 @@ function routesConfig(app) {
     app.get("/status/:id/_log/owner", cors(corsOptions), get.status.log.owner);
     app.get("/status/:id/_log/member", cors(corsOptions), get.status.log.member);
     app.get("/status/:id/_log/alert", cors(corsOptions), get.status.log.alert);
-    // app.get("/history/:id", cors(corsOptions), get.history.id);
+    app.get("/history/:id", cors(corsOptions), get.history.id);
     // app.get("/history/all", cors(corsOptions), get.history.all);
     // app.get("/history/:id/_log", cors(corsOptions), get.history.log);
 
@@ -138,6 +138,7 @@ function routesConfig(app) {
     app.delete("/users/:id/_log/user", cors(corsOptions), d.users.log.user);
     app.delete("/users/:id/_log/location", cors(corsOptions), d.users.log.location);
     app.delete("/users/:id/_log/profile", cors(corsOptions), d.users.log.profile);
+    app.delete("/share/:id/item", cors(corsOptions), d.share.id);
     app.delete("/share/:id/location", cors(corsOptions), d.share.location);
     app.delete("/share/:id/date", cors(corsOptions), d.share.date);
     app.delete("/share/:id/max_number", cors(corsOptions), d.share.max_number);
@@ -146,6 +147,7 @@ function routesConfig(app) {
     app.delete("/share/:id/member", cors(corsOptions), d.share.member);
     app.delete("/share/:id/member/:uid", cors(corsOptions), d.share.member);
     app.delete("/share/:id/chat", cors(corsOptions), d.share.chat);
+    app.delete("/share/:id/_log", cors(corsOptions), d.share.log.id);
     app.delete("/share/:id/_log/location", cors(corsOptions), d.share.log.location);
     app.delete("/share/:id/_log/date", cors(corsOptions), d.share.log.date);
     app.delete("/share/:id/_log/max_number", cors(corsOptions), d.share.log.max_number);

@@ -1200,6 +1200,27 @@ exports.get = {
                 }
             },
         }
+    },
+    history: {
+        id: async (req, res) => {
+            let path = `history/${req.params.id}`;
+
+            try {
+
+                await getDatabase(path).then(function (snapshot) {
+                    let data = (snapshot.val())
+                    if (data !== null) {
+                        return res.send(data)
+                    } else {
+                        updateArrayDatabase(path, null)
+                    }
+
+                })
+
+            } catch (err) {
+                return checkError(err, res)
+            }
+        },
     }
 }
 
@@ -1287,6 +1308,19 @@ exports.d = {
         }
     },
     share: {
+        id: async (req, res) => {
+            let path = `share/${req.params.id}`
+
+            try {
+
+                await deleteDatabase(path)
+
+                res.send(`ลบข้อมูล ${path} เสร็จสิ้น`);
+
+            } catch (error) {
+                return checkError(err, res)
+            }
+        },
         location: async (req, res) => {
             let path = `share/${req.params.id}/location`
 
@@ -1379,6 +1413,19 @@ exports.d = {
             }
         },
         log: {
+            id: async (req, res) => {
+                let path = `share/${req.params.id}/_log`;
+
+                try {
+
+                    await deleteDatabase(path)
+
+                    res.send(`ลบข้อมูล ${path} เสร็จสิ้น`);
+
+                } catch (error) {
+                    return checkError(err, res)
+                }
+            },
             location: async (req, res) => {
                 let path = `share/${req.params.id}/_log/location`;
 
