@@ -301,6 +301,20 @@ exports.post = {
                     return checkError(err, res)
                 }
             },
+            alert: async (req, res) => {
+                let path = `share/${req.params.id}/_log/alert`;
+                let data = JSON.parse(req.body);
+
+                try {
+
+                    await updateArrayDatabase(path, data)
+
+                    res.send(`บันทึกข้อมูล ${path} เสร็จสิ้น`);
+
+                } catch (error) {
+                    return checkError(err, res)
+                }
+            },
             chat: async (req, res) => {
                 let path = `share/${req.params.id}/_log/chat`;
                 let data = JSON.parse(req.body);
