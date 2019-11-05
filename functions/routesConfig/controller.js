@@ -194,7 +194,7 @@ exports.post = {
 
             try {
 
-                await updateObjectDatabase(path, data)
+                await updateArrayDatabase(path, data)
 
                 res.send(`บันทึกข้อมูล ${path} เสร็จสิ้น`);
 
@@ -746,7 +746,19 @@ exports.get = {
 
                 await getDatabase(path).then(function (snapshot) {
                     let data = (snapshot.val())
+                    if(data !== null) {
                     return res.send(data)
+                    }else {
+                        updateArrayDatabase(path, {
+                            uid: `${req.params.id}`,
+                            share_id: '',
+                            profile: {
+                                displayName: "Addmin",
+                                photoURL: ''
+                            },
+                            msg: 'เริ่มการสนทนา'
+                        })
+                    }
 
                 })
 
