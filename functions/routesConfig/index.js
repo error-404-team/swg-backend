@@ -29,6 +29,7 @@ function routesConfig(app) {
     app.options("/share/:id/member", cors(corsOptions));
     app.options("/share/:id/member/:uid", cors(corsOptions));
     app.options("/share/:id/chat", cors(corsOptions));
+    app.options("/share/:id/alert", cors(corsOptions));
     app.options("/share/:id/_log/location", cors(corsOptions));
     app.options("/share/:id/_log/date", cors(corsOptions));
     app.options("/share/:id/_log/max_number", cors(corsOptions));
@@ -36,6 +37,7 @@ function routesConfig(app) {
     app.options("/share/:id/_log/owner", cors(corsOptions));
     app.options("/share/:id/_log/member/:uid", cors(corsOptions));
     app.options("/share/:id/_log/chat", cors(corsOptions));
+    app.options("/share/:id/_log/alert", cors(corsOptions));
     app.options("/status/all", cors(corsOptions));
     app.options("/status/:id", cors(corsOptions));
     app.options("/status/:id/process", cors(corsOptions));
@@ -66,6 +68,7 @@ function routesConfig(app) {
     app.post("/share/:id/owner", cors(corsOptions), post.share.owner);
     app.post("/share/:id/member", cors(corsOptions), post.share.member);
     app.post("/share/:id/chat", cors(corsOptions), post.share.chat);
+    app.post("/share/:id/alert", cors(corsOptions), post.share.alert);
     app.post("/share/:id/_log/location", cors(corsOptions), post.share.log.location);
     app.post("/share/:id/_log/date", cors(corsOptions), post.share.log.date);
     app.post("/share/:id/_log/max_number", cors(corsOptions), post.share.log.max_number);
@@ -73,6 +76,7 @@ function routesConfig(app) {
     app.post("/share/:id/_log/owner", cors(corsOptions), post.share.log.owner);
     app.post("/share/:id/_log/member", cors(corsOptions), post.share.log.member);
     app.post("/share/:id/_log/chat", cors(corsOptions), post.share.log.chat);
+    app.post("/share/:id/_log/alert", cors(corsOptions), post.share.log.alert);
     app.post("/status/:id/process", cors(corsOptions), post.status.process);
     app.post("/status/:id/share", cors(corsOptions), post.status.share);
     app.post("/status/:id/owner", cors(corsOptions), post.status.owner);
@@ -103,6 +107,7 @@ function routesConfig(app) {
     app.get("/share/:id/owner", cors(corsOptions), get.share.owner);
     app.get("/share/:id/member", cors(corsOptions), get.share.member);
     app.get("/share/:id/chat", cors(corsOptions), get.share.chat);
+    app.get("/share/:id/alert", cors(corsOptions), get.share.alert);
     app.get("/share/:id/_log/location", cors(corsOptions), get.share.log.location);
     app.get("/share/:id/_log/date", cors(corsOptions), get.share.log.date);
     app.get("/share/:id/_log/max_number", cors(corsOptions), get.share.log.max_number);
@@ -110,6 +115,7 @@ function routesConfig(app) {
     app.get("/share/:id/_log/owner", cors(corsOptions), get.share.log.owner);
     app.get("/share/:id/_log/member", cors(corsOptions), get.share.log.member);
     app.get("/share/:id/_log/chat", cors(corsOptions), get.share.log.chat);
+    app.get("/share/:id/_log/alert", cors(corsOptions), get.share.log.alert);
     app.get("/status/all", cors(corsOptions), get.status.all);
     app.get("/status/:id", cors(corsOptions), get.status.id);
     app.get("/status/:id/process", cors(corsOptions), get.status.process);

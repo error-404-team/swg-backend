@@ -188,6 +188,20 @@ exports.post = {
                 return checkError(err, res)
             }
         },
+        alert: async (req, res) => {
+            let path = `share/${req.params.id}/alert`;
+            let data = JSON.parse(req.body);
+
+            try {
+
+                await updateObjectDatabase(path, data)
+
+                res.send(`บันทึกข้อมูล ${path} เสร็จสิ้น`);
+
+            } catch (error) {
+                return checkError(err, res)
+            }
+        },
         chat: async (req, res) => {
             let path = `share/${req.params.id}/chat`;
             let data = JSON.parse(req.body);
@@ -739,6 +753,31 @@ exports.get = {
                 return checkError(err, res)
             }
         },
+        alert: async (req, res) => {
+            let path = `share/${req.params.id}/alert`;
+
+            try {
+
+                await getDatabase(path).then(function (snapshot) {
+                    let data = (snapshot.val())
+                    if (data !== null) {
+                        return res.send(data)
+                    } else {
+                        updateArrayDatabase(path, {
+                            uid: `${req.params.id}`,
+                            share_id: '',
+                            select: 'กำลังรอข้อมูล',
+                            license_plate: 'กำลังรอข้อมูล'
+
+                        })
+                    }
+
+                })
+
+            } catch (err) {
+                return checkError(err, res)
+            }
+        },
         chat: async (req, res) => {
             let path = `share/${req.params.id}/chat`;
 
@@ -746,9 +785,9 @@ exports.get = {
 
                 await getDatabase(path).then(function (snapshot) {
                     let data = (snapshot.val())
-                    if(data !== null) {
-                    return res.send(data)
-                    }else {
+                    if (data !== null) {
+                        return res.send(data)
+                    } else {
                         updateArrayDatabase(path, {
                             uid: `${req.params.id}`,
                             share_id: '',
@@ -844,6 +883,21 @@ exports.get = {
             },
             member: async (req, res) => {
                 let path = `share/${req.params.id}/_log/member`;
+
+                try {
+
+                    await getDatabase(path).then(function (snapshot) {
+                        let data = (snapshot.val())
+                        return res.send(data)
+
+                    })
+
+                } catch (err) {
+                    return checkError(err, res)
+                }
+            },
+            alert: async (req, res) => {
+                let path = `share/${req.params.id}/_log/alert`;
 
                 try {
 
