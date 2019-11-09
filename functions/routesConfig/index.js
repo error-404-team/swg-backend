@@ -53,6 +53,8 @@ function routesConfig(app) {
     app.options("/history/:id", cors(corsOptions));
     app.options("/history/all", cors(corsOptions));
     app.options("/history/:id/_log", cors(corsOptions));
+    app.options("/report/:id", cors(corsOptions));
+    app.options("/report/:id/_log", cors(corsOptions));
 
 
     app.post("/users/:id/user", cors(corsOptions), post.users.user);
@@ -89,6 +91,8 @@ function routesConfig(app) {
     app.post("/status/:id/_log/alert", cors(corsOptions), post.status.log.alert);
     app.post("/history/:id", cors(corsOptions), post.history.id);
     app.post("/history/:id/_log", cors(corsOptions), post.history.log);
+    app.post("/report/:id", cors(corsOptions), post.report.id);
+    app.post("/report/:id/_log", cors(corsOptions), post.report.log);
 
     app.get("/users/all", cors(corsOptions), get.users.all);
     app.get("/users/:id", cors(corsOptions), get.users.id);
